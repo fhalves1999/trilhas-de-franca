@@ -1,0 +1,10 @@
+<p>route-list works!</p>
+<h2>Rotas do Strava</h2>
+<div *ngFor="let route of routes">
+  <h3>{{ route.name }}</h3>
+  <p><strong>Descrição:</strong> {{ route.description }}</p>
+  <p><strong>Distância:</strong> {{ route.distance / 1000 }} km</p>
+  <p><strong>Ganho de elevação:</strong> {{ route.elevation_gain }} m</p>
+  <p><strong>Tempo estimado:</strong> {{ route.estimated_moving_time }} s</p>
+  <hr />
+</div>
