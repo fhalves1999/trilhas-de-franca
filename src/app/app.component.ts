@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteListComponent } from './components/route-list/route-list.component';
 import { StravaService } from './services/strava.service';
+import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouteListComponent],
-  template: `
-    <app-route-list
-      [routes]="routes"
-      [loading]="loading"
-      [errorMsg]="errorMsg"
-    ></app-route-list>
-  `,
+  imports: [RouterModule, MatToolbarModule, MatIconModule],
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  anoAtual = new Date().getFullYear();
   routes: any[] | null = null;
   loading = true;
   errorMsg = '';

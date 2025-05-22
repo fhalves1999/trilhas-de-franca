@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgFor, NgIf, CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -17,7 +16,6 @@ import { TimeFormatPipe } from './time-format.pipe';
     NgIf,
     CommonModule,
     MatCardModule,
-    MatToolbarModule,
     MatIconModule,
     MatDividerModule,
     MatProgressSpinnerModule,

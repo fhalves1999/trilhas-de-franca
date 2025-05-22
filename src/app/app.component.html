@@ -1,1 +1,18 @@
-<app-route-list [routes]="routes"></app-route-list>
+<nav class="main-menu">
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Início</a>
+  <a routerLink="/sobre" routerLinkActive="active">Sobre</a>
+  <a routerLink="/creditos" routerLinkActive="active">Créditos</a>
+</nav>
+
+<mat-toolbar color="primary" class="toolbar">
+  <mat-icon>map</mat-icon>
+  <span>Trilhas de Franca</span>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<footer class="main-footer">
+  <a href="https://www.strava.com/athletes/15888295" target="_blank" rel="noopener">
+    {{ anoAtual }} - Desenvolvido por Flavio Alves
+  </a>
+</footer>

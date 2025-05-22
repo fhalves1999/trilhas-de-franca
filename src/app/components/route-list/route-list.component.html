@@ -1,35 +1,34 @@
-<mat-toolbar color="primary" class="toolbar">
-  <mat-icon>map</mat-icon>
-  <span>Rotas do Strava</span>
-</mat-toolbar>
-
 <div class="route-list-container">
-  <ng-container *ngIf="!loading && routes?.length; else loadingTpl">
-    <div class="route-row" *ngFor="let route of routes">
-      <div class="route-info">
-        <div class="route-title">
-          <mat-icon color="accent" class="bike-icon">directions_bike</mat-icon>
-          <span>{{ route.name }}</span>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <span>Carregando rotas...</span>
+  </div>
+  <ng-container *ngIf="!loading">
+    <div *ngIf="routes && routes.length > 0">
+      <div class="route-row" *ngFor="let route of routes">
+        <div class="route-info">
+          <div class="route-title">
+            <mat-icon color="accent" class="bike-icon">directions_bike</mat-icon>
+            <span>{{ route.name }}</span>
+          </div>
+          <div class="route-details">
+            <span><strong>Distância:</strong> {{ route.distance / 1000 | number:'1.2-2' }} km</span>
+          </div>
+          <div class="route-details">
+            <span><strong>Elevação:</strong> {{ route.elevation_gain | number:'1.0-0' }} m</span>
+          </div>
+          <div class="route-time">
+            <span><strong>Tempo estimado:</strong> {{ route.estimated_moving_time | timeFormat }}</span>
+          </div>
         </div>
-        <div class="route-details">
-          <span><strong>Distância:</strong> {{ route.distance / 1000 | number:'1.2-2' }} km</span>
+        <div class="route-map" *ngIf="route.map_urls?.url">
+          <img [src]="route.map_urls.url" alt="Mapa da rota" />
         </div>
-        <div class="route-details">
-          <span><strong>Elevação:</strong> {{ route.elevation_gain | number:'1.0-0' }} m</span>
-        </div>
-        <div class="route-time">
-          <span><strong>Tempo estimado:</strong> {{ route.estimated_moving_time | timeFormat }}</span>
-        </div>
+        <br>
       </div>
-      <div class="route-map" *ngIf="route.map_urls?.url">
-        <img [src]="route.map_urls.url" alt="Mapa da rota" />
-      </div>
+    </div>
+    <div *ngIf="routes && routes.length === 0" class="no-results">
+      Nenhum resultado encontrado.
     </div>
   </ng-container>
-  <ng-template #loadingTpl>
-    <div class="loading">
-      <mat-spinner diameter="40"></mat-spinner>
-      <span>Carregando rotas...</span>
-    </div>
-  </ng-template>
 </div>
