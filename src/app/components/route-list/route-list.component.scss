@@ -33,8 +33,7 @@
   .bike-icon {
     font-size: 1.5rem;
     margin-right: 12px;
-    margin-right: 0; /* Remova o margin-right, pois o gap já cuida do espaçamento */
-    flex-shrink: 0; /* Garante que o ícone não será redimensionado *    
+    margin-right: 0; 
 }
 
 .route-details {
@@ -58,6 +57,10 @@
 .route-map {
   width: 100%;
   margin-top: 18px;
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente (se necessário) */
+  margin-top: 1rem; /* Adiciona espaço acima */
 
   img {
     display: block;
