@@ -2,34 +2,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-search-routes',
   standalone: true,
-  imports: [FormsModule],
-  template: `
-    <div class="search-container">
-      <input [(ngModel)]="searchTerm" (ngModelChange)="onInputChange($event)" placeholder="Digite o nome da trilha" />      
-    </div>
-  `,
-  styles: [`
-    .search-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 2rem 0;
-      gap: 0.5rem;
-    }
-    input {
-      padding: 0.5rem;
-      font-size: 1rem;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-  `]
+  imports: [FormsModule, MatFormFieldModule, MatInputModule],
+  templateUrl: './search-routes.component.html'
 })
 export class SearchRoutesComponent {
   searchTerm = '';

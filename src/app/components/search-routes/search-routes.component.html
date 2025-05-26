@@ -1,1 +1,7 @@
-<p>search-routes works!</p>
+<div style="min-width: 600px; display: flex;">
+    <div class="search-container" [style]="{'margin-top': '20px', textAlign: 'center', 'width': '100%', display: 'flex', 'justify-content': 'center'}">
+    <mat-form-field appearance="outline" class="search-field" [style]="{textAlign: 'center', 'width': '100%'}">
+        <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onInputChange($event)" placeholder="Digite o nome da trilha" />
+    </mat-form-field>
+    </div>
+</div>

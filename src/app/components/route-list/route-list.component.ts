@@ -8,6 +8,8 @@ import { TimeFormatPipe } from './time-format.pipe';
 import { SearchRoutesComponent } from '../search-routes/search-routes.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { StravaService } from '../../services/strava.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-route-list',
@@ -24,7 +26,9 @@ import { StravaService } from '../../services/strava.service';
     MatProgressSpinnerModule,
     TimeFormatPipe,
     SearchRoutesComponent,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
 })
 export class RouteListComponent {
@@ -98,9 +102,34 @@ onPageChange(event: PageEvent) {
   this.setPaginatedRoutes();
 }  
 
-  get totalPages(): number {
-    return Math.ceil(this.filteredRoutes.length / this.pageSize);
-  }  
+get totalPages(): number {
+  return Math.ceil(this.filteredRoutes.length / this.pageSize);
+}  
+
+sortBy: string = 'name';
+sortDirection: 'asc' | 'desc' = 'desc';
+
+onSortChange() {
+  this.sortRoutes();
+}
+
+sortRoutes() {
+  if (!this.paginatedRoutes) return;
+  const direction = this.sortDirection === 'asc' ? 1 : -1;
+  switch (this.sortBy) {
+    case 'elevation':
+      this.paginatedRoutes.sort((a, b) => direction * (a.elevation_gain - b.elevation_gain));
+      break;
+    case 'distance':
+      this.paginatedRoutes.sort((a, b) => direction * (a.distance - b.distance));
+      break;
+    case 'duration':
+      this.paginatedRoutes.sort((a, b) => direction * (a.estimated_moving_time - b.estimated_moving_time));
+      break;
+    default:
+      this.paginatedRoutes.sort((a, b) => direction * a.name.localeCompare(b.name));
+  }
+}
 
 }
 

@@ -1,6 +1,25 @@
 <div class="route-list-container">
   <app-search-routes (search)="onSearch($event)"></app-search-routes>
 
+<div class="sort-container" [style]="{textAlign: 'center', 'width': '100%'}">
+  <mat-form-field appearance="outline" class="sort-field" [style]="{textAlign: 'center', 'width': '100%'}">
+    <mat-label>Ordenar por</mat-label>
+    <mat-select [(value)]="sortBy" (selectionChange)="onSortChange()">
+      <mat-option value="name">Nome</mat-option>
+      <mat-option value="elevation">Elevação</mat-option>
+      <mat-option value="distance">Distância</mat-option>
+      <mat-option value="duration">Tempo de duração</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="sort-direction-field" [style]="{textAlign: 'center', 'width': '100%'}">
+    <mat-label>Direção</mat-label>
+    <mat-select [(value)]="sortDirection" (selectionChange)="onSortChange()">
+      <mat-option value="desc">Maior para menor</mat-option>
+      <mat-option value="asc">Menor para maior</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
   <div *ngIf="loading" class="loading">
     <mat-spinner diameter="40"></mat-spinner>
     <span>Carregando rotas...</span>
@@ -24,10 +43,19 @@
             <span><strong>Tempo estimado:</strong> {{ route.estimated_moving_time | timeFormat }}</span>
           </div>
         </div>
+
         <!-- Botão de download -->
-        <button mat-raised-button color="primary" (click)="downloadGpx(route.id_str)">
-          Download GPX
-        </button>        
+        <div class="download-btn-container">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="downloadGpx(route.id_str)"
+          >
+            <mat-icon>download</mat-icon>
+            Download GPX
+          </button>
+        </div>   
+
         <div class="route-map" *ngIf="route.map_urls?.url">
           <img [src]="route.map_urls.url" alt="Mapa da rota" />
         </div>

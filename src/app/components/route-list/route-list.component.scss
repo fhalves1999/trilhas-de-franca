@@ -106,11 +106,52 @@ mat-paginator {
   text-align: center;
   color: #fff;
   opacity: 0.7;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   text-decoration: none;
   transition: opacity 0.2s;
   width: 100%;
 }
 .strava-link:hover {
   color: #616159;
+}
+
+.download-btn-container button[mat-raised-button] mat-icon {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  font-size: 1.2em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+button[mat-raised-button] {
+  font-size: 1rem;
+  border-radius: 8px;
+  box-shadow: none;
+  background: #fff;
+  color: #fc5200;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+
+  mat-icon {
+    margin-right: 0.5rem;
+    color: #fc5200;
+  }
+
+  &:hover {
+    background: #fc5200;
+    color: #fff;
+
+    mat-icon {
+      color: #fff;
+    }
+  }
+}
+
+.sort-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.sort-field {
+  min-width: 200px;
 }
