@@ -9,6 +9,7 @@
       <mat-option value="elevation">Elevação</mat-option>
       <mat-option value="distance">Distância</mat-option>
       <mat-option value="duration">Tempo de duração</mat-option>
+      <mat-option value="nivel">Nível de dificuldade</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline" class="sort-direction-field" [style]="{textAlign: 'center', 'width': '100%'}">
@@ -42,6 +43,15 @@
           <div class="route-time">
             <span><strong>Tempo estimado:</strong> {{ route.estimated_moving_time | timeFormat }}</span>
           </div>
+
+          <div class="route-details">
+            <span>
+              <strong>Nível de dificuldade: </strong>
+              <span [ngClass]="getDificuldadeClass(route)">
+                {{ getDificuldadeLabel(route) }}
+              </span>
+            </span>
+          </div>         
         </div>
 
         <!-- Botão de download -->
@@ -52,7 +62,7 @@
             (click)="downloadGpx(route.id_str)"
           >
             <mat-icon>download</mat-icon>
-            Download GPX
+            Baixar arquivo .GPX da rota
           </button>
         </div>   
 
@@ -75,7 +85,6 @@
           *ngIf="totalPages > 1"
           [length]="filteredRoutes.length"
           [pageSize]="pageSize"
-          [pageSizeOptions]="[5, 10, 20, 50]"
           [pageIndex]="currentPage - 1"
           (page)="onPageChange($event)">
         </mat-paginator>      

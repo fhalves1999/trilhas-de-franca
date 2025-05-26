@@ -155,3 +155,40 @@ button[mat-raised-button] {
 .sort-field {
   min-width: 200px;
 }
+
+::ng-deep .mat-mdc-paginator-page-size {
+  display: none !important;
+}
+
+.nivel-facil {
+  background: #43a047; /* verde */
+  color: #fff;
+  padding: 0.2em 0.8em;
+  border-radius: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+.nivel-medio {
+  background: #ffd600; /* amarelo */
+  color: #222;
+  padding: 0.2em 0.8em;
+  border-radius: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+.nivel-dificil {
+  background: #e53935; /* vermelho */
+  color: #fff;
+  padding: 0.2em 0.8em;
+  border-radius: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+.nivel-muito-dificil {
+  background: #6d0036; /* vinho */
+  color: #fff;
+  padding: 0.2em 0.8em;
+  border-radius: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
