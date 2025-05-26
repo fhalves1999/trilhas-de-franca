@@ -1,18 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StravaService } from '../../services/strava.service';
 import { RouteListComponent } from '../../components/route-list/route-list.component';
 import { NgIf } from '@angular/common';
-import { SearchRoutesComponent } from '../../components/search-routes/search-routes.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouteListComponent, NgIf, SearchRoutesComponent],
+  imports: [RouteListComponent, NgIf],
   template: `
-    <app-search-routes (search)="buscarTrilhas($event)"></app-search-routes>
-    <div *ngIf="routes !== null && !loading" class="result-count">
-      {{ routes.length }} registro{{ routes.length === 1 ? '' : 's' }} localizado{{ routes.length === 1 ? '' : 's' }}
-    </div>
+
     <div *ngIf="loading" class="loading-container">
       <span class="spinner"></span>
       <span>Carregando...</span>
@@ -51,6 +47,7 @@ import { SearchRoutesComponent } from '../../components/search-routes/search-rou
       margin-bottom: 1rem;
       color: #3f51b5;
       font-weight: 500;
+      margin-top: 1rem;
     }
   `]
 })
@@ -61,21 +58,26 @@ export class HomeComponent {
 
   constructor(private stravaService: StravaService) {}
 
+  ngOnInit() {
+    this.buscarTrilhas('');
+  }
+
   buscarTrilhas(termo: string) {
     this.loading = true;
     this.routes = null;
     this.errorMsg = '';
     this.stravaService.getRoutes().subscribe({
       next: (data) => {
+        let rotas = data;
         if (termo) {
           const termoNormalizado = termo.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-          this.routes = data.filter((r: any) => {
+          rotas = rotas.filter((r: any) => {
             const nomeNormalizado = (r.name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
             return nomeNormalizado.includes(termoNormalizado);
           });
-        } else {
-          this.routes = data;
         }
+        // Ordena alfabeticamente pelo nome
+        this.routes = rotas.sort((a: any, b: any) => (a.name || '').localeCompare(b.name || ''));
         this.loading = false;
       },
       error: (err) => {

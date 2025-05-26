@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-routes',
@@ -7,10 +9,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
   template: `
     <div class="search-container">
-      <input [(ngModel)]="searchTerm" placeholder="Buscar trilha..." />
-      <button (click)="onSearch()" aria-label="Buscar">
-        🔍
-      </button>
+      <input [(ngModel)]="searchTerm" (ngModelChange)="onInputChange($event)" placeholder="Digite o nome da trilha" />      
     </div>
   `,
   styles: [`
@@ -36,7 +35,26 @@ export class SearchRoutesComponent {
   searchTerm = '';
   @Output() search = new EventEmitter<string>();
 
+  private searchSubject = new Subject<string>();
+  private searchSub: Subscription; 
+
+  constructor() {
+    this.searchSub = this.searchSubject.pipe(
+      debounceTime(400) // 400ms de atraso
+    ).subscribe(term => {
+      this.search.emit(term.trim());
+    });  
+  }
+
+  onInputChange(term: string) {
+    this.searchSubject.next(term);
+  }  
+
   onSearch() {
     this.search.emit(this.searchTerm.trim());
   }
+
+  ngOnDestroy() {
+    this.searchSub.unsubscribe();
+  }  
 }

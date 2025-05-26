@@ -9,10 +9,10 @@ import { Component } from '@angular/core';
         Desenvolvido por
 
         <a href="https://www.strava.com/athletes/15888295" target="_blank" rel="noopener">
-          Flavio Alves
+          Flavio Alves.
         </a>
-
-        . Todos os diritos reservados..<br> <br>
+        <br>
+        Todos os direitos reservados.<br>
       </p>
     </div>
   `

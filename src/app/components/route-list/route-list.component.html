@@ -1,12 +1,17 @@
 <div class="route-list-container">
+  <app-search-routes (search)="onSearch($event)"></app-search-routes>
+
   <div *ngIf="loading" class="loading">
     <mat-spinner diameter="40"></mat-spinner>
     <span>Carregando rotas...</span>
   </div>
+
   <ng-container *ngIf="!loading">
-    <div *ngIf="routes && routes.length > 0">
-      <div class="route-row" *ngFor="let route of routes">
+    <div *ngIf="paginatedRoutes && paginatedRoutes.length > 0">
+      <div class="route-row" *ngFor="let route of paginatedRoutes">
         <div class="route-info">
+          
+     
           <div class="route-title">
             <mat-icon color="accent" class="bike-icon">directions_bike</mat-icon>
             <span>{{ route.name }}</span>
@@ -26,9 +31,18 @@
         </div>
         <br>
       </div>
-    </div>
-    <div *ngIf="routes && routes.length === 0" class="no-results">
-      Nenhum resultado encontrado.
-    </div>
+      <!-- Paginação -->
+        <mat-paginator class="paginator-container"
+          *ngIf="totalPages > 1"
+          [length]="filteredRoutes.length"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 20, 50]"
+          [pageIndex]="currentPage - 1"
+          (page)="onPageChange($event)">
+        </mat-paginator>      
+      </div>
+      <div *ngIf="paginatedRoutes && paginatedRoutes.length === 0" class="no-results">
+        Nenhum resultado encontrado.
+      </div>
   </ng-container>
 </div>

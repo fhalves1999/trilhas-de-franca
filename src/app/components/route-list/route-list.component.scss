@@ -26,12 +26,15 @@
   font-weight: bold;
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 5px;
+  gap: 12px; /* Adiciona espaço entre o ícone e o texto */
+}
 
   .bike-icon {
     font-size: 1.5rem;
     margin-right: 12px;
-  }
+    margin-right: 0; /* Remova o margin-right, pois o gap já cuida do espaçamento */
+    flex-shrink: 0; /* Garante que o ícone não será redimensionado *    
 }
 
 .route-details {
@@ -76,4 +79,19 @@
   align-items: center;
   margin-top: 40px;
   color: #888;
+}
+
+
+mat-paginator {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem; /* Opcional: adiciona espaço acima */
+}
+
+.route-list-container {
+  padding: 0 2rem; /* Adiciona 2rem de espaço nas laterais */
+}
+
+.route-row {
+  margin-bottom: 1rem; /* Espaço entre os cards */
 }
