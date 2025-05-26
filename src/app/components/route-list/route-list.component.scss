@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  background: #fc5200;
+  background: linear-gradient(135deg, #fc5200 0%, #ff8800 80%, #ffb347 100%);
 }
 
 .route-title {
@@ -61,6 +61,7 @@
   justify-content: center; /* Centraliza horizontalmente */
   align-items: center; /* Centraliza verticalmente (se necessário) */
   margin-top: 1rem; /* Adiciona espaço acima */
+  margin-bottom: 0; // Garante que não há espaço extra
 
   img {
     display: block;
@@ -68,6 +69,7 @@
     border-radius: 14px;
     box-shadow: 0 2px 12px #0002;
     margin: 0 auto;
+    margin-bottom: 0; // Garante que não há espaço extra
   }
 }
 
@@ -97,4 +99,18 @@ mat-paginator {
 
 .route-row {
   margin-bottom: 1rem; /* Espaço entre os cards */
+}
+
+.strava-link {
+  display: block;
+  text-align: center;
+  color: #fff;
+  opacity: 0.7;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+.strava-link:hover {
+  color: #616159;
 }

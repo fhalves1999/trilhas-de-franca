@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TimeFormatPipe } from './time-format.pipe';
 import { SearchRoutesComponent } from '../search-routes/search-routes.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { StravaService } from '../../services/strava.service';
 
 @Component({
   selector: 'app-route-list',
@@ -30,6 +31,24 @@ export class RouteListComponent {
   @Input() routes: any[] | null = null;
   @Input() loading = false;
   @Input() errorMsg = '';
+
+  constructor(private stravaService: StravaService) {}
+
+  downloadGpx(routeId: string): void {
+    this.stravaService.getGpxFile(routeId).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `route-${routeId}.gpx`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Erro ao baixar o arquivo GPX:', err);
+      },
+    });
+  }   
 
   currentPage = 1;
   pageSize = 10;

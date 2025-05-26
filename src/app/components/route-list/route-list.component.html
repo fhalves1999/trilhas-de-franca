@@ -24,9 +24,24 @@
             <span><strong>Tempo estimado:</strong> {{ route.estimated_moving_time | timeFormat }}</span>
           </div>
         </div>
+        <!-- Botão de download -->
+        <button mat-raised-button color="primary" (click)="downloadGpx(route.id_str)">
+          Download GPX
+        </button>        
         <div class="route-map" *ngIf="route.map_urls?.url">
           <img [src]="route.map_urls.url" alt="Mapa da rota" />
         </div>
+        <a
+          class="strava-link"
+          [href]="'https://www.strava.com/routes/' + route.id_str"
+          target="_blank"
+          rel="noopener"
+        >
+          Ver no Strava
+        </a>
+
+     
+
         <br>
       </div>
       <!-- Paginação -->
