@@ -59,12 +59,15 @@
           <button
             mat-raised-button
             color="primary"
+            [disabled]="isDownloadingGpx === route.id_str"
             (click)="downloadGpx(route.id_str)"
           >
-            <mat-icon>download</mat-icon>
-            Baixar arquivo .GPX da rota
+            <mat-icon *ngIf="isDownloadingGpx !== route.id_str">download</mat-icon>
+            <mat-spinner *ngIf="isDownloadingGpx === route.id_str" diameter="24" style="margin-right:8px"></mat-spinner>
+            <span *ngIf="isDownloadingGpx !== route.id_str">Baixar arquivo .GPX da rota</span>
+            <span *ngIf="isDownloadingGpx === route.id_str">Gerando arquivo...</span>
           </button>
-        </div>   
+        </div>
 
         <div class="route-map" *ngIf="route.map_urls?.url">
           <img [src]="route.map_urls.url" alt="Mapa da rota" />
