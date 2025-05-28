@@ -1,1 +1,1 @@
-export const version = '__VERSION__';
+export const version = '0.0.0';
