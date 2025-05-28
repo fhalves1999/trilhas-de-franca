@@ -5,6 +5,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntlPtBr } from './shared/mat-paginator-intl-pr-br';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { version } from '../version';
 
 
 @Component({
@@ -22,8 +25,18 @@ export class AppComponent implements OnInit {
   routes: any[] | null = null;
   loading = true;
   errorMsg = '';
+  version = version;
 
-  constructor(private stravaService: StravaService) {}
+  constructor(
+    private stravaService: StravaService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer
+  ) {
+    iconRegistry.addSvgIcon(
+      'whatsapp',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/whatsapp.svg')
+    );
+  }  
 
   ngOnInit() {
     this.stravaService.getRoutes().subscribe({
@@ -38,4 +51,6 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  
 }

@@ -4,7 +4,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TimeFormatPipe } from './time-format.pipe';
 import { SearchRoutesComponent } from '../search-routes/search-routes.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { StravaService } from '../../services/strava.service';
@@ -12,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { RouteCardComponent } from '../route-card/route-card.component';
 
 @Component({
   selector: 'app-route-list',
@@ -26,56 +26,17 @@ import { saveAs } from 'file-saver';
     MatIconModule,
     MatDividerModule,
     MatProgressSpinnerModule,
-    TimeFormatPipe,
     SearchRoutesComponent,
     MatPaginatorModule,
     MatSelectModule,
     MatOptionModule, 
+    RouteCardComponent
   ],
 })
 export class RouteListComponent {
   @Input() routes: any[] | null = null;
   @Input() loading = false;
   @Input() errorMsg = '';
-
-  constructor(private stravaService: StravaService) {}
-  isDownloadingGpx: string | null = null;
-
-  downloadGpx(routeId: string): void {
-    this.isDownloadingGpx = routeId;
-    console.log("Iniciando download do GPX. Horário: ", new Date().toLocaleTimeString());
-
-    const route = (this.routes ?? []).find(r => r.id_str === routeId);
-    const routeName = route ? `route-${routeId}_${this.normalizeFileName(route.name)}` : `route-${routeId}`;
-
-    this.stravaService.getGpxFile(routeId).subscribe({
-      next: (blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${routeName}.gpx`;
-        a.click();
-        window.URL.revokeObjectURL(url);
-        console.log("Finalizando download do GPX. Horário: ", new Date().toLocaleTimeString());
-        this.isDownloadingGpx = null;
-      },
-      error: (err) => {
-        console.error('Erro ao baixar o arquivo GPX:', err);
-        this.isDownloadingGpx = null;
-      },
-    });
-  }   
-
-// Função utilitária para normalizar nomes
-normalizeFileName(name: string): string {
-  return name
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '') // Remove acentos
-    .replace(/[^a-zA-Z0-9-_]/g, '_') // Substitui caracteres especiais por _
-    .replace(/_+/g, '_')             // Troca múltiplos _ por um só
-    .replace(/^_+|_+$/g, '')         // Remove _ do início/fim
-    .toLowerCase();
-}  
 
   currentPage = 1;
   pageSize = 20;

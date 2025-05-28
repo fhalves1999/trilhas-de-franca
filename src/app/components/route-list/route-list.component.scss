@@ -7,72 +7,6 @@
   margin: 0 auto;
 }
 
-.route-row {
-  margin-bottom: 1.5rem;
-  background: #222;
-  color: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 18px #0002;
-  padding: 32px 32px 24px 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  background: linear-gradient(135deg, #fc5200 0%, #ff8800 80%, #ffb347 100%);
-}
-
-.route-title {
-  font-size: 2rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-  gap: 12px; /* Adiciona espaço entre o ícone e o texto */
-}
-
-  .bike-icon {
-    font-size: 1.5rem;
-    margin-right: 12px;
-    margin-right: 0; 
-}
-
-.route-details {
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-
-  .divider {
-    opacity: 0.7;
-    font-weight: 300;
-  }
-}
-
-.route-description,
-.route-time {
-  font-size: 1.1rem;
-  margin-top: 6px;
-}
-
-.route-map {
-  width: 100%;
-  margin-top: 18px;
-  display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente (se necessário) */
-  margin-top: 1rem; /* Adiciona espaço acima */
-  margin-bottom: 0; // Garante que não há espaço extra
-
-  img {
-    display: block;
-    max-width: 100%;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px #0002;
-    margin: 0 auto;
-    margin-bottom: 0; // Garante que não há espaço extra
-  }
-}
-
 .toolbar {
   margin-bottom: 24px;
   background: #fc5200;
@@ -97,57 +31,6 @@ mat-paginator {
   padding: 0 2rem; /* Adiciona 2rem de espaço nas laterais */
 }
 
-.route-row {
-  margin-bottom: 1rem; /* Espaço entre os cards */
-}
-
-.strava-link {
-  display: block;
-  text-align: center;
-  color: #fff;
-  opacity: 0.7;
-  font-size: 0.95rem;
-  text-decoration: none;
-  transition: opacity 0.2s;
-  width: 100%;
-}
-.strava-link:hover {
-  color: #616159;
-}
-
-.download-btn-container button[mat-raised-button] mat-icon {
-  margin-right: 0.5rem;
-  vertical-align: middle;
-  font-size: 1.2em;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-}
-
-button[mat-raised-button] {
-  font-size: 1rem;
-  border-radius: 8px;
-  box-shadow: none;
-  background: #fff;
-  color: #fc5200;
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-
-  mat-icon {
-    margin-right: 0.5rem;
-    color: #fc5200;
-  }
-
-  &:hover {
-    background: #fc5200;
-    color: #fff;
-
-    mat-icon {
-      color: #fff;
-    }
-  }
-}
-
 .sort-container {
   display: flex;
   justify-content: flex-end;
@@ -158,37 +41,4 @@ button[mat-raised-button] {
 
 ::ng-deep .mat-mdc-paginator-page-size {
   display: none !important;
-}
-
-.nivel-facil {
-  background: #43a047; /* verde */
-  color: #fff;
-  padding: 0.2em 0.8em;
-  border-radius: 12px;
-  font-weight: bold;
-  display: inline-block;
-}
-.nivel-medio {
-  background: #ffd600; /* amarelo */
-  color: #222;
-  padding: 0.2em 0.8em;
-  border-radius: 12px;
-  font-weight: bold;
-  display: inline-block;
-}
-.nivel-dificil {
-  background: #e53935; /* vermelho */
-  color: #fff;
-  padding: 0.2em 0.8em;
-  border-radius: 12px;
-  font-weight: bold;
-  display: inline-block;
-}
-.nivel-muito-dificil {
-  background: #6d0036; /* vinho */
-  color: #fff;
-  padding: 0.2em 0.8em;
-  border-radius: 12px;
-  font-weight: bold;
-  display: inline-block;
 }

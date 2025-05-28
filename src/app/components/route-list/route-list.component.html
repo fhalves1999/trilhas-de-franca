@@ -26,74 +26,25 @@
     <span>Carregando rotas...</span>
   </div>
 
+
   <ng-container *ngIf="!loading">
     <div *ngIf="paginatedRoutes && paginatedRoutes.length > 0">
-      <div class="route-row" *ngFor="let route of paginatedRoutes">
-        <div class="route-info">
-          <div class="route-title">
-            <mat-icon color="accent" class="bike-icon">directions_bike</mat-icon>
-            <span>{{ route.name }}</span>
-          </div>
-          <div class="route-details">
-            <span><strong>Distância:</strong> {{ route.distance / 1000 | number:'1.2-2' }} km</span>
-          </div>
-          <div class="route-details">
-            <span><strong>Elevação:</strong> {{ route.elevation_gain | number:'1.0-0' }} m</span>
-          </div>
-          <div class="route-time">
-            <span><strong>Tempo estimado:</strong> {{ route.estimated_moving_time | timeFormat }}</span>
-          </div>
-
-          <div class="route-details">
-            <span>
-              <strong>Nível de dificuldade: </strong>
-              <span [ngClass]="getDificuldadeClass(route)">
-                {{ getDificuldadeLabel(route) }}
-              </span>
-            </span>
-          </div>         
-        </div>
-
-        <!-- Botão de download -->
-        <div class="download-btn-container">
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="isDownloadingGpx === route.id_str"
-            (click)="downloadGpx(route.id_str)"
-          >
-            <mat-icon *ngIf="isDownloadingGpx !== route.id_str">download</mat-icon>
-            <mat-spinner *ngIf="isDownloadingGpx === route.id_str" diameter="24" style="margin-right:8px"></mat-spinner>
-            <span *ngIf="isDownloadingGpx !== route.id_str">Baixar arquivo .GPX da rota</span>
-            <span *ngIf="isDownloadingGpx === route.id_str">Gerando arquivo...</span>
-          </button>
-        </div>
-
-        <div class="route-map" *ngIf="route.map_urls?.url">
-          <img [src]="route.map_urls.url" alt="Mapa da rota" />
-        </div>
-        <a
-          class="strava-link"
-          [href]="'https://www.strava.com/routes/' + route.id_str"
-          target="_blank"
-          rel="noopener"
-        >
-          Ver no Strava
-        </a>
-
-        <br>
-      </div>
-      <!-- Paginação -->
+      <app-route-card
+        *ngFor="let route of paginatedRoutes"
+        [route]="route"
+        [getDificuldadeClass]="getDificuldadeClass"
+        [getDificuldadeLabel]="getDificuldadeLabel"
+      ></app-route-card>
         <mat-paginator class="paginator-container"
           *ngIf="totalPages > 1"
           [length]="filteredRoutes.length"
           [pageSize]="pageSize"
           [pageIndex]="currentPage - 1"
           (page)="onPageChange($event)">
-        </mat-paginator>      
-      </div>
-      <div *ngIf="paginatedRoutes && paginatedRoutes.length === 0" class="no-results">
-        Nenhum resultado encontrado.
-      </div>
-  </ng-container>
+        </mat-paginator> 
+    </div>
+    <div *ngIf="paginatedRoutes && paginatedRoutes.length === 0" class="no-results">
+      Nenhum resultado encontrado.
+    </div>
+  </ng-container>  
 </div>

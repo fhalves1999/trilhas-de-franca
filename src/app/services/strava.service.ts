@@ -21,4 +21,24 @@ export class StravaService {
     return this.http.get(`${this.backendUrl}/api/strava/routes/${routeId}/gpx`, { responseType: 'blob' });
   }
 
+  getRouteById(id: string): Observable<any> {
+  return this.http.get(`/api/rotas/${id}`);
+}
+
+  downloadGpx(routeId: string, routeName: string) {
+    this.getGpxFile(routeId).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${routeName}.gpx`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Erro ao baixar o arquivo GPX:', err);
+      }
+    });
+  }
+
 }
