@@ -7,7 +7,6 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { MatPaginatorIntlPtBr } from './shared/mat-paginator-intl-pr-br';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { version } from '../version';
 
 
 @Component({
@@ -25,7 +24,6 @@ export class AppComponent implements OnInit {
   routes: any[] | null = null;
   loading = true;
   errorMsg = '';
-  version = version;
 
   constructor(
     private stravaService: StravaService,
