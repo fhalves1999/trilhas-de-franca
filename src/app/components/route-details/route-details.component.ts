@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouteCardComponent } from '../route-card/route-card.component';
 import { StravaService } from '../../services/strava.service';
-import { Meta, Title } from '@angular/platform-browser';
+import { MetaTagService } from '../../services/meta-tag.service';
 
 @Component({
   selector: 'app-route-details',
   standalone: true,
-  imports: [CommonModule, 
+  imports: [CommonModule,
     RouteCardComponent,
   ],
   template: `
@@ -32,8 +32,7 @@ export class RouteDetailsComponent implements OnInit {
   constructor(
     private routeParam: ActivatedRoute,
     private stravaService: StravaService,
-    private meta: Meta, 
-    private title: Title
+    private metaTagService: MetaTagService
 
   ) {}
 
@@ -42,13 +41,48 @@ export class RouteDetailsComponent implements OnInit {
     this.stravaService.getRoutes().subscribe(routes => {
       this.route = routes.find((r: any) => r.id_str === id);
       this.loading = false;
-    });
 
-  this.title.setTitle(this.route.name);
-  this.meta.updateTag({ property: 'og:title', content: this.route.name });
-  this.meta.updateTag({ property: 'og:description', content: 'Veja detalhes da rota!' });
-  this.meta.updateTag({ property: 'og:image', content: this.route.map_urls?.url });
-  this.meta.updateTag({ property: 'og:url', content: window.location.href });
+    console.log('Rota completa:', JSON.stringify(this.route));
+    console.log('Mapa da rota:', this.route?.map);
+    console.log('URLs do mapa:', this.route?.map_urls);
+
+      console.log('Rota carregada:', this.route);
+      if (this.route) {
+      const baseUrl = window.location.origin;
+
+      // 1. Verificar qual imagem está disponível
+      let imageUrl = null;
+      if (this.route.map?.url) {
+        imageUrl = this.route.map.url;
+      } else if (this.route.map_urls?.retina) {
+        imageUrl = this.route.map_urls.retina;
+      } else {
+        imageUrl = `${baseUrl}/assets/default-route.jpg`;
+      }
+
+console.log('URL da imagem selecionada:', imageUrl);
+
+      const metaTags = {
+        title: `Trilhas de Franca - | ${this.route.name}`,
+        description: `Distância: ${this.route.distance/1000}km - Elevação: ${this.route.elevation_gain}m`,
+        image: this.route.map.url || this.route.map_urls?.retina || `${baseUrl}/assets/default-route.jpg`,
+        url: `${baseUrl}/rota/${id}`
+      };
+
+// Se você tem um polyline:
+if (this.route.map?.summary_polyline) {
+  const encodedPolyline = encodeURIComponent(this.route.map.summary_polyline);
+  const imageUrl = `https://maps.googleapis.com/maps/api/staticmap?size=600x400&path=weight:3%7Ccolor:red%7Cenc:${encodedPolyline}&key=SUA_CHAVE_API`;
+
+  metaTags.image = imageUrl;
+  console.log('URL da imagem com polyline:', imageUrl);
+}
+
+      console.log('Meta tags geradas:', metaTags);
+      this.metaTagService.updateMetaTags(metaTags);
+}
+
+    });
 
   }
 

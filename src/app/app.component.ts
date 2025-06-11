@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   routes: any[] | null = null;
   loading = true;
   errorMsg = '';
+  title = 'strava-routes-app';
 
   constructor(
     private stravaService: StravaService,
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit {
       'whatsapp',
       sanitizer.bypassSecurityTrustResourceUrl('assets/whatsapp.svg')
     );
-  }  
+  }
 
   ngOnInit() {
     this.stravaService.getRoutes().subscribe({
@@ -50,5 +51,5 @@ export class AppComponent implements OnInit {
     });
   }
 
-  
+
 }
