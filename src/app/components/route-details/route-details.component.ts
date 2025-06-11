@@ -72,7 +72,7 @@ console.log('URL da imagem selecionada:', imageUrl);
 // Se você tem um polyline:
 if (this.route.map?.summary_polyline) {
   const encodedPolyline = encodeURIComponent(this.route.map.summary_polyline);
-  const imageUrl = `https://maps.googleapis.com/maps/api/staticmap?size=600x400&path=weight:3%7Ccolor:red%7Cenc:${encodedPolyline}&key=SUA_CHAVE_API`;
+  const imageUrl = `https://maps.googleapis.com/maps/api/staticmap?size=600x400&path=weight:3%7Ccolor:red%7Cenc:${encodedPolyline}&key=AIzaSyDa8E60bNraebcCBpxDXpJfxdONVLNAU0Y`;
 
   metaTags.image = imageUrl;
   console.log('URL da imagem com polyline:', imageUrl);
